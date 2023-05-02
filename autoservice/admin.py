@@ -18,14 +18,14 @@ class CarAdmin(admin.ModelAdmin):
     list_filter = ('client', 'car_model')
     search_fields = ('client', 'plate_number', 'vin_number')
 
-class ServiceePriceAdmin(admin.ModelAdmin):
+class ServicePriceAdmin(admin.ModelAdmin):
     list_display = ('service', 'price')
 
 
 admin.site.register(CarModel)
 admin.site.register(Car, CarAdmin)
 admin.site.register(Service)
-admin.site.register(ServicePrice)
+admin.site.register(ServicePrice, ServicePriceAdmin)
 admin.site.register(OrderList, OrderListAdmin)
 admin.site.register(Order)
 

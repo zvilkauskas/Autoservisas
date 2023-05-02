@@ -67,6 +67,7 @@ class OrderList(models.Model):
     car = models.ForeignKey(Car, on_delete=models.SET_NULL, null=True)
     total_price = models.FloatField()
 
+
     def __str__(self):
         return f"{self.car} - {self.order_date} - {self.total_price}"
 

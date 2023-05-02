@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <h4>Info about {{ car_info.car_model }}</h4>
+        <hr/>
+        <p>{{ car_info.client }}<br>{{ car_info.car_model }}<br>{{ car_info.plate_number }}<br>{{ car_info.vin_number }}</p>
+    </div>
+{% endblock %}
