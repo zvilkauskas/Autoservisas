@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <h4>Order List for {{order_list.car.client}}</h4>
+    <h5>Order done at: {{order_list.order_date}}</h5>
+    <h5>Car model: {{order_list.car.car_model}}</h5>
+    <h5>Licence plate: {{order_list.car.plate_number}}</h5>
+    <h5>Vin no: {{order_list.car.vin_number}}</h5>
+    <h5>Total price for order list: {{order_list.total_price}}</h5>
+    <h4><b>Order list comprising of: </b></h4>
+    <ul>
+        <li>Service / Quantity / Price</li>
+        {% for order in orders %}
+        <li>{{order.service}} / {{order.quantity}} / {{order.price}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

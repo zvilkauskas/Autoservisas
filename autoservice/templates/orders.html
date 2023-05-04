@@ -5,6 +5,24 @@
   <p>List of all orders</p>
     {% for order in orders %}
         <li>
-            <a href="{% url 'specific_order' order.order_list_id %}}">{{order}} </a></li>
+            <a href="{% url 'specific_order' order.order_list_id %}">{{order}} </a></li>
     {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pirmas</a>
+            <a href="?page={{ page_obj.previous_page_number }}">atgal</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }} iš {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">pirmyn</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">paskutinis &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

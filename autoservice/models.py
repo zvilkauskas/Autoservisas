@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-import datetime
+
 
 
 class CarModel(models.Model):
@@ -9,6 +9,7 @@ class CarModel(models.Model):
     car_model = models.CharField("Car model", max_length=100)
     production_year = models.DateField("Made on: ", null=True)
     engine = models.CharField("Engine", max_length=100)
+
 
     def __str__(self):
         return f"{self.brand} - {self.car_model}"
@@ -24,6 +25,7 @@ class Car(models.Model):
     plate_number = models.CharField("Plate number", max_length=20)
     vin_number = models.CharField("VIN", max_length=17)
     client = models.CharField("Client", max_length=100)
+    photo = models.ImageField('Photo', upload_to='car_photos', null=True)
 
     def __str__(self):
         return f"{self.client} - {self.car_model} - {self.plate_number} - {self.vin_number}"
@@ -92,8 +94,3 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
-
-
-# order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-# service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
-# quantity = models.IntegerField()

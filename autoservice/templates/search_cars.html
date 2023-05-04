@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Search by car "{{query}}" rezultatai:</h1>
+  </br>
+  {% if cars %}
+  <ul>
+    {% for car in cars %}
+      <li>
+        <a href="{% url 'search_car' car.car_id %}">{{ car.car_model }} - ({{car.car_model.engine}} - ({{car.car_model.production_year}})</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Oops. Nothing was found :(</p>
+  {% endif %}
+
+  {% endblock %}

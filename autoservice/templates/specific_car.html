@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
+    {% if car.photo %}
+        <img src="{{ car.photo.url }}" class="card-img-top car-photo" alt="...">
+    {% else %}
+        <img src="{% static 'media/car_photos/no-image.png' %}" class="card-img-top car-photo">
+    {% endif %}
     <div>
         <h4>Info about {{ car_info.car_model }}</h4>
         <hr/>
