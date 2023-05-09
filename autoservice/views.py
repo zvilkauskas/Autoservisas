@@ -9,18 +9,18 @@ def index(request):
     registered_cars_models_count = CarModel.objects.all().count()
     services = Service.objects.all()
     services_count = Service.objects.all().count()
+
+    num_visits = request.session.get('num_visits', 1)
+    request.session['num_visits'] = num_visits + 1
+
     context = {
         'registered_cars_models_count': registered_cars_models_count,
         'services': services,
         'services_count': services_count,
+        'num_visits': num_visits,
     }
     return render(request, 'index.html', context)
-# def registered_car_models(request):
-#     registered_cars = Car.objects.all()
-#     context = {
-#         'registered_cars_models': registered_cars
-#     }
-#     return render(request, 'registered_car_models.html', context)
+
 
 #paginatoriaus perdarymas
 class CarListView(generic.ListView):
