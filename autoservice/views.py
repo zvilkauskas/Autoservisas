@@ -4,6 +4,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     registered_cars_models_count = CarModel.objects.all().count()
@@ -70,5 +71,19 @@ def search_car(request):
                                         | Q(plate_number__icontains=query)
                                         | Q(vin_number__icontains=query))
     return render(request, 'search_cars.html', {'cars': search_results, 'query': query})
+
+@login_required(login_url='login')
+def user_orders(request):
+    user = request.user
+    try:
+        user_order_lists = OrderList.objects.filter(user_order=request.user).filter(order_status__exact='r').order_by('due_back')
+    except OrderList.DoesNotExist:
+        user_order_lists = None
+    print(user_order_lists)
+    context = {
+        'user': user,
+        'user_order_lists': user_order_lists,
+    }
+    return render(request, 'user_order.html', context)
 
 

@@ -19,15 +19,17 @@
                     {% block sidebar %}
                         <ul class="sidebar-nav">
                             {% if user.is_authenticated %}
+                                {{ user.first_name }} personal account
+                                <li>
+                                    <form action="{% url 'search_car' %}" method="get" class="form-inline my-2 my-md-0">
+                                        <input name="query" class="form-control" type="text" placeholder="Search">
+                                    </form>
+                                </li>
+                                <li><a href="{% url 'my-orders' %}">My orders</a></li>
                                 <li><a href="{% url 'index' %}">Main page</a></li>
                                 <li><a href="{% url 'registered_car_models' %}">All registered cars</a></li>
                                 <li><a href="{% url 'services' %}">All available services</a></li>
                                 <li><a href="{% url 'orders' %}">Orders</a></li>
-                                <li>
-                                    <form action="{% url 'search_car' %}" method="get" class="form-inline my-2 my-md-0">
-                                        <input name="query" class="form-control" type="text" placeholder="Paieška">
-                                    </form>
-                                </li>
                                 <li><a href="{% url 'logout' %}?next=/autoservice">Logout</a></li>
                             {% else %}
                                 <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>

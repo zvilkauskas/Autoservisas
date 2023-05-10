@@ -9,14 +9,19 @@ class OrderInline(admin.TabularInline):
 
 
 class OrderListAdmin(admin.ModelAdmin):
-    list_display = ('car', 'order_date')
+    list_display = ('car', 'order_date', 'user_order', 'order_status')
     inlines = [OrderInline]
+    fieldsets = (
+        (None, {'fields': ('car',)}),
+        ('Service status', {'fields': ('order_status', 'user_order', 'due_back')}),
+    )
 
 
 class CarAdmin(admin.ModelAdmin):
     list_display = ('client', 'car_model', 'plate_number', 'vin_number')
     list_filter = ('client', 'car_model')
     search_fields = ('client', 'plate_number', 'vin_number')
+
 
 class ServicePriceAdmin(admin.ModelAdmin):
     list_display = ('service', 'price')
