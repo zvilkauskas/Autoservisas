@@ -113,3 +113,15 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+
+class OrderListReview(models.Model):
+    order_list = models.ForeignKey('OrderList', on_delete=models.SET_NULL, null=True, blank=True, related_name='reviews')
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField('Atsiliepimas', max_length=2000)
+
+    class Meta:
+        verbose_name = "Atsiliepimas"
+        verbose_name_plural = 'Atsiliepimai'
+        ordering = ['-date_created']
