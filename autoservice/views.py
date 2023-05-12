@@ -78,8 +78,8 @@ def specific_order(request, order_list_id):
         review = OrderListReview(order_list=order_list_id, reviewer=request.user, content=comment)
         review.save()
         messages.info(request, f'Review posted successfully')
-        #
-        return redirect('specific_order')
+        print(review)
+        return redirect('specific_order', order_list.order_list_id_id)
 
     return render(request, 'specific_order.html', context)
 
