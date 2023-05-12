@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <p>Hello {{user.username}}! </p>
+        <p>You are visiting this site for the {{ num_visits }} time.</p>
+    {% else %}
+        <h1>My poor autoservice</h1>
+        <p>Welcome to my poor autoservice</p>
+    {% endif %}
+        <p>Some registered info:</p>
+        <ul>
+            <li><strong>Registered cars in autoservice:</strong> {{ registered_cars_models_count }}</li>
+            <li><strong>Available services:</strong> {{ services_count }}
+            <li><strong>Services:</strong>
+                {% for service in services %} {{service.service_name}}, {% endfor %}
+            </li>
+        </ul>
 
-    <h1>My poor autoservice</h1>
-    <p>Welcome to my poor autoservice</p>
-    <p>Some registered info:</p>
-    <ul>
-        <li><strong>Registered cars in autoservice:</strong> {{ registered_cars_models_count }}</li>
-        <li><strong>Available services:</strong> {{ services_count }}
-        <li><strong>Services:</strong>
-            {% for service in services %} {{service.service_name}}, {% endfor %}
-        </li>
-    </ul>
 
 {% endblock %}

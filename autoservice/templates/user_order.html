@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h3>{{ user.first_name }} {{ user.last_name}} orders: </h3>
+  {% if user_order_lists %}
+    <ul>
+      {% for order_list in user_order_lists %}
+        <li class="{% if order_list.is_overdue %}text-danger{% endif %}">
+          <a href="{% url 'specific_order' order_list.order_list_id %}">{{order_list.car.car_model}} {{order_list.car.plate_number}} {{order_list.car.vin_number}}</a> Due back: ({{ order_list.due_back }})
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+{% endblock %}

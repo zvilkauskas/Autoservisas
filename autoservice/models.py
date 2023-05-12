@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User
+from datetime import date
 
 
 class CarModel(models.Model):
@@ -9,7 +10,6 @@ class CarModel(models.Model):
     car_model = models.CharField("Car model", max_length=100)
     production_year = models.DateField("Made on: ", null=True)
     engine = models.CharField("Engine", max_length=100)
-
 
     def __str__(self):
         return f"{self.brand} - {self.car_model}"
@@ -68,7 +68,26 @@ class OrderList(models.Model):
     order_date = models.DateTimeField(default=timezone.now)
     car = models.ForeignKey(Car, on_delete=models.SET_NULL, null=True)
     total_price = models.FloatField()
+    user_order = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    due_back = models.DateField('Ready to pickup on:', null=True, blank=True)
+    DUE_BACK_STATUS = (
+        ('n', 'Not started'),
+        ('p', 'Processing'),
+        ('r', 'Ready for pickup'),
+    )
+    order_status = models.CharField(
+        max_length=1,
+        default='n',
+        blank=True,
+        choices=DUE_BACK_STATUS,
+        help_text='Order status'
+    )
 
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
     def __str__(self):
         return f"{self.car} - {self.order_date} - {self.total_price}"
@@ -94,3 +113,15 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+
+class OrderListReview(models.Model):
+    order_list = models.ForeignKey('OrderList', on_delete=models.SET_NULL, null=True, blank=True, related_name='reviews')
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField('Atsiliepimas', max_length=2000)
+
+    class Meta:
+        verbose_name = "Atsiliepimas"
+        verbose_name_plural = 'Atsiliepimai'
+        ordering = ['-date_created']
