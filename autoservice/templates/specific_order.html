@@ -9,9 +9,9 @@
     <h5>Total price for order list: {{order_list.total_price}}</h5>
     <h4><b>Order list comprising of: </b></h4>
     <ul>
-        <li>Service / Quantity / Price</li>
+        <li>Service / Price / Quantity / Total </li>
         {% for order in orders %}
-        <li>{{order.service}} / {{order.quantity}} / {{order.price}}</li>
+        <li>{{order.service}} / {{order.price}} / {{order.quantity}} / {{order.total_order_price}}</li>
         {% endfor %}
     </ul>
 
@@ -20,7 +20,7 @@
     {% if order_list.reviews.all %}
         {% for review in order_list.reviews.all %}
           <hr>
-          <strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created}}</em>
+          <strong>{{ review.reviewer.first_name }}</strong>, <em>{{ review.date_created}}</em>
           <p>{{ review.content }}</p>
         {% endfor %}
     {% else %}
@@ -39,6 +39,9 @@
                 <small id="commentHelp" class="form-text text-muted">Iki 2000 simbolių.</small>
             </div>
             </br>
+            <style>
+                Input {max-width: 500px; max-height: 200px;}
+            </style>
           <button type="submit" class="btn btn-primary">Išsaugoti</button>
         </form>
         </div>

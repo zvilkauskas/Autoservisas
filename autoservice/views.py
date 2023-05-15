@@ -75,11 +75,11 @@ def specific_order(request, order_list_id):
     }
     if request.method == "POST":
         comment = request.POST['comment']
-        review = OrderListReview(order_list=order_list_id, reviewer=request.user, content=comment)
+        review = OrderListReview(order_list_id=order_list_id, reviewer=request.user, content=comment)
         review.save()
         messages.info(request, f'Review posted successfully')
         print(review)
-        return redirect('specific_order', order_list.order_list_id_id)
+        return redirect('specific_order', order_list.order_list_id)
 
     return render(request, 'specific_order.html', context)
 
