@@ -15,7 +15,7 @@ from django.contrib import messages
 # Reviews importai
 from django.shortcuts import render, reverse, get_object_or_404
 
-# Importuojame FormMixin, kurį naudosime BookDetailView klasėje
+# Importuojame FormMixin, kurį naudosime BookDetailView klasėje (autoserviso atveju buvo padaryta per html)
 from django.views.generic.edit import FormMixin
 
 def index(request):
@@ -66,6 +66,7 @@ def orders(request):
         page_num = page_number
     return render(request, 'orders.html', {'orders': paged_orders, 'page_obj': paginator.page(page_num)})
 
+#forma nereikalinga šiuo atveju
 def specific_order(request, order_list_id):
     order_list = get_object_or_404(OrderList, pk=order_list_id)
     orders_of_order_list = Order.objects.filter(order_list_id__exact=order_list_id)

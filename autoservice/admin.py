@@ -7,9 +7,15 @@ class OrderInline(admin.TabularInline):
     # Turn off extra empty lines for input
     extra = 0
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('order_id', 'service', 'quantity', 'price', 'total_order_price',)
+
+    def total_order_price(self, obj):
+        return obj.total_order_price
+
 
 class OrderListAdmin(admin.ModelAdmin):
-    list_display = ('car', 'order_date', 'user_order', 'order_status')
+    list_display = ('car', 'order_date', 'user_order', 'order_status', 'total_order_list_price')
     inlines = [OrderInline]
     fieldsets = (
         (None, {'fields': ('car',)}),
@@ -35,6 +41,6 @@ admin.site.register(Car, CarAdmin)
 admin.site.register(Service)
 admin.site.register(ServicePrice, ServicePriceAdmin)
 admin.site.register(OrderList, OrderListAdmin)
-admin.site.register(Order)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderListReview, OrderListReviewAdmin)
 
