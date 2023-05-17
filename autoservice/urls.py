@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('registered_car_models/', views.CarListView.as_view(), name='registered_car_models'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('my_orders/', views.user_orders, name='my-orders'),
     path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
 ]

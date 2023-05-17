@@ -18,11 +18,20 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('autoservice/', include('autoservice.urls')),
-    path('', RedirectView.as_view(url='library/', permanent=True)),
+    path('', RedirectView.as_view(url='autoservice/', permanent=True)),
+    path(
+      'change-password/',
+      auth_views.PasswordChangeView.as_view(
+          template_name='commons/change-password.html',
+          success_url='/'
+      ),
+      name='change_password'
+    ),
 ] + (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

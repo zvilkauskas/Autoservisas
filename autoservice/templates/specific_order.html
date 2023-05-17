@@ -20,6 +20,7 @@
     {% if order_list.reviews.all %}
         {% for review in order_list.reviews.all %}
           <hr>
+            <img class="rounded-circle" src="{{review.reviewer.profile.photo.url}}">
           <strong>{{ review.reviewer.first_name }}</strong>, <em>{{ review.date_created}}</em>
           <p>{{ review.content }}</p>
         {% endfor %}
